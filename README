@@ -1,0 +1,42 @@
+msh [Mush Shell]
+-------------------
+Author: Camden Penn
+
+Files:
+  msh.cpp
+  msh.h
+  process.cpp
+  process.h
+
+Internal Organization:
+  process.*:
+    Defines a struct called process, which stores relevant information about running processes.
+    Includes a function to_string(), which converts a struct instance into a formatted string.
+
+  msh.*:
+    Important variables:
+      background_processes:
+        A std::vector of processes, listing all processes currently in the background.
+      variables:
+        A std::map in which the keys are variable names and the values are the variables' contents.
+      input_tokens, tokens:
+        std::vectors containing a tokenized input line. In tokens, all variables have been resolved.
+
+    For a description of functions, see msh.h.
+
+Features:
+  Variables can be any token.
+  Impact:
+    References to variables must be followed by one of the following characters: whitespace, ", or #.
+
+  If, on compilation, easter_eggs is #define-d to be true or true-equivalent:
+    The variable ^shrug is defined.
+    The variable ^table_flip is defined.
+
+Limitations:
+  Does not handle piping.
+  Does not include autocomplete.
+  Does not remember prior commands.
+  Tokens cannot include " or #, or start with ^ if they're not variables. In other words, special characters cannot be escaped.
+  Ctrl-C on a child program or in the shell terminates the shell, rather than stopping just the child and moving to a new prompt.
+  The only editable environment variable is PATH.
